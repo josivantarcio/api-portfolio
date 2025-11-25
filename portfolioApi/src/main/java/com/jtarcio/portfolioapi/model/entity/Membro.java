@@ -1,6 +1,6 @@
 package com.jtarcio.portfolioapi.model.entity;
 
-import com.jtarcio.portfolioapi.model.entity.enums.Atribuicao;
+import com.jtarcio.portfolioapi.model.entity.enums.AtribuicaoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +25,7 @@ public class Membro {
 
     @Enumerated(EnumType.STRING)
     @NonNull
-    private Atribuicao atribuicao;
+    private AtribuicaoEnum atribuicaoEnum;
 
     @ManyToMany(mappedBy = "membros")
     private List<Projeto> projeto;

@@ -1,7 +1,7 @@
 package com.jtarcio.portfolioapi.model.entity;
 
-import com.jtarcio.portfolioapi.model.entity.enums.ClassificacaoRisco;
-import com.jtarcio.portfolioapi.model.entity.enums.StatusProjeto;
+import com.jtarcio.portfolioapi.model.entity.enums.ClassificacaoRiscoEnum;
+import com.jtarcio.portfolioapi.model.entity.enums.StatusProjetoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,10 +47,10 @@ public class Projeto {
 
     @Enumerated(EnumType.ORDINAL)
     @NonNull
-    private StatusProjeto status;
+    private StatusProjetoEnum status;
 
     @Transient
-    private ClassificacaoRisco classificacaoRisco;
+    private ClassificacaoRiscoEnum classificacaoRiscoEnum;
 
     @ManyToMany
     @JoinTable(name = "projeto_membros", joinColumns = @JoinColumn(name = "projeto_id"), inverseJoinColumns = @JoinColumn(name = "membro_id"))

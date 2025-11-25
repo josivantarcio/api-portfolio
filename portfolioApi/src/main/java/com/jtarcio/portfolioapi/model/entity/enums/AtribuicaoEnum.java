@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum Atribuicao {
+public enum AtribuicaoEnum {
 
         TERCERIZADO(1),
         FUNCIONARIO(2),

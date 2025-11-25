@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 @AllArgsConstructor
 @Getter
-public enum StatusProjeto {
+public enum StatusProjetoEnum {
     /*
      * em análise →
      * análise realizada →
@@ -31,15 +31,15 @@ public enum StatusProjeto {
 
     private final int codigo;
 
-    public boolean possoMudarStatus(StatusProjeto proximoStatus) {
+    public boolean possoMudarStatus(StatusProjetoEnum proximoStatus) {
         return proximoStatus.getCodigo() == this.codigo + 1;
     }
 
-    public StatusProjeto proximoStatus() {
+    public StatusProjetoEnum proximoStatus() {
         if (this == CANCELADO || this == ENCERRADO) {
             throw new PortfolioException("Último Status! Impossível Mudar Status");
         } else {
-            return StatusProjeto.values()[this.codigo + 1]; //vai usar o indice
+            return StatusProjetoEnum.values()[this.codigo + 1]; //vai usar o indice
         }
     }
 
@@ -48,7 +48,7 @@ public enum StatusProjeto {
         return this == ENCERRADO || this == CANCELADO;
     }
 
-    public static StatusProjeto codigo(int codigo) {
+    public static StatusProjetoEnum codigo(int codigo) {
         return Arrays.stream(values())
                 .filter(s -> s.getCodigo() == codigo)
                 .findFirst()
