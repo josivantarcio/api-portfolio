@@ -1,5 +1,6 @@
 package com.jtarcio.portfolioapi.model.entity.enums;
 
+import com.jtarcio.portfolioapi.exception.PortfolioException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -36,7 +37,7 @@ public enum StatusProjeto {
 
     public StatusProjeto proximoStatus() {
         if (this == CANCELADO || this == ENCERRADO) {
-            throw new IllegalArgumentException("Último Status.");
+            throw new PortfolioException("Último Status! Impossível Mudar Status");
         } else {
             return StatusProjeto.values()[this.codigo + 1]; //vai usar o indice
         }
@@ -51,7 +52,7 @@ public enum StatusProjeto {
         return Arrays.stream(values())
                 .filter(s -> s.getCodigo() == codigo)
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Codigo de Status Invalido: " + codigo));
+                .orElseThrow(() -> new PortfolioException("Codigo de Status Invalido: " + codigo));
     }
 
 }
