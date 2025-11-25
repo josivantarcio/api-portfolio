@@ -7,8 +7,9 @@ import lombok.Getter;
 @Getter
 public enum Atribuicao {
 
-        GERENTE(1),
-        FUNCIONARIO(2);
+        TERCERIZADO(1),
+        FUNCIONARIO(2),
+        ACIONISTA(3);
 
         private final int codigo;
 }

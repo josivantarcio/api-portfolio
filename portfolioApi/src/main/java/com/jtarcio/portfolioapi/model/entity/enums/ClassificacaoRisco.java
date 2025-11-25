@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ClassificacaoRisco {
-    BAIXO(1),
-    MEDIO(2),
-    ALTO(3);
+    BAIXO_RISCO(1),
+    MEDIO_RISCO(2),
+    ALTO_RISCO(3);
 
     private final int codigo;
 
