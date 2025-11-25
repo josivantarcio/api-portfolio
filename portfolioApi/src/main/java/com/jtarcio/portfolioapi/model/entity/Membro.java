@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_membros")
 @Data
@@ -25,5 +27,6 @@ public class Membro {
     @NonNull
     private Atribuicao atribuicao;
 
-    //variavel projeto aqui.
+    @ManyToMany(mappedBy = "membros")
+    private List<Projeto> projeto;
 }

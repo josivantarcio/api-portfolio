@@ -49,14 +49,10 @@ public class Projeto {
     @NonNull
     private StatusProjeto status;
 
-    @Enumerated(EnumType.ORDINAL)
     @Transient
     private ClassificacaoRisco classificacaoRisco;
 
     @ManyToMany
-    @JoinTable(name = "projeto_membros",
-            joinColumns = @JoinColumn(name = "projeto_id"),
-            inverseJoinColumns = @JoinColumn(name = "membro_id")
-    )
+    @JoinTable(name = "projeto_membros", joinColumns = @JoinColumn(name = "projeto_id"), inverseJoinColumns = @JoinColumn(name = "membro_id"))
     private List<Membro> membros;
 }
