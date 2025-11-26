@@ -30,9 +30,6 @@ public class MembroService {
                 .orElseThrow(() -> new PortfolioException("Membro não foi localizado no banco de dados"));
     }
 
-    //buscar membro de um projeto especifico
-
-
     //salvar membro
     public Membro save(Membro membro) {
         return membroRepository.save(membro);
@@ -60,5 +57,4 @@ public class MembroService {
         assert membro != null;
         return List.of(membro);
     }
-
 }
