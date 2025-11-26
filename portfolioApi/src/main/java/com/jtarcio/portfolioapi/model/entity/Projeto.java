@@ -1,5 +1,6 @@
 package com.jtarcio.portfolioapi.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jtarcio.portfolioapi.model.entity.enums.ClassificacaoRiscoEnum;
 import com.jtarcio.portfolioapi.model.entity.enums.StatusProjetoEnum;
 import jakarta.persistence.*;
@@ -19,7 +20,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Projeto {
-    public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +29,14 @@ public class Projeto {
     private String nome;
 
     @NonNull
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataInicio;
 
     @NonNull
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate previsaoFim;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFim;
 
     @NonNull
