@@ -4,6 +4,9 @@ import com.jtarcio.portfolioapi.exception.PortfolioException;
 import com.jtarcio.portfolioapi.model.entity.Membro;
 import com.jtarcio.portfolioapi.repository.MembroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -53,8 +56,13 @@ public class MembroService {
     public List<Membro> buscarMembroMock() {
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:8080/mock/membros";
-        Membro[] membro = restTemplate.getForObject(url, Membro[].class);
-        assert membro != null;
-        return List.of(membro);
+        ResponseEntity<List<Membro>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Membro>>() {}
+        );
+
+        return response.getBody();
     }
 }

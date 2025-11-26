@@ -1,5 +1,6 @@
 package com.jtarcio.portfolioapi.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jtarcio.portfolioapi.model.entity.enums.AtribuicaoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,5 +29,6 @@ public class Membro {
     private AtribuicaoEnum atribuicaoEnum;
 
     @ManyToMany(mappedBy = "membros")
+    @JsonIgnore
     private List<Projeto> projeto;
 }

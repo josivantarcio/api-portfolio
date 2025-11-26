@@ -60,11 +60,11 @@ public class MembroController {
         return ResponseEntity.noContent().build();
     }
 
-    //mock
     @GetMapping("/mock")
-    @Operation(summary = "Buscar membros mock", description = "Retorna membros da API mock externa")
+    @Operation(summary = "Buscar membros mock")
     public ResponseEntity<List<Membro>> buscarMembrosMock() {
         List<Membro> membros = membroService.buscarMembroMock();
         return ResponseEntity.ok(membros);
     }
+
 }
