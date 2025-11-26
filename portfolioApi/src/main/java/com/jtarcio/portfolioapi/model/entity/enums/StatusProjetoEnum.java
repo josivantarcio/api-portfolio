@@ -44,7 +44,7 @@ public enum StatusProjetoEnum {
     }
 
     // bloquear a exclusão de projetos finalizados
-    public boolean isStatusFianlizado() {
+    public boolean isStatusFinalizado() {
         return this == ENCERRADO || this == CANCELADO;
     }
 

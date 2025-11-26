@@ -22,7 +22,7 @@ public class MembroService {
         this.membroRepository = membroRepository;
     }
 
-    //buscar por todos os membro
+    //buscar todos os membros
     public List<Membro> findAll() {
         return membroRepository.findAll();
     }
@@ -40,27 +40,30 @@ public class MembroService {
 
     //deletar membro
     public void delete(Long id) {
-        membroRepository.deleteById(id);
+        Membro membro = findById(id);
+        membroRepository.delete(membro);
     }
 
-    //limite de 3 projetos
-    public boolean newProjeto(Membro membro) {
-        long projetoAtivo = membro.getProjeto()
+    //validar se membro pode ser alocado em novo projeto (limite de 3 projetos ativos)
+    public boolean podeAlocarEmNovoProjeto(Membro membro) {
+        long projetosAtivos = membro.getProjetos()
                 .stream()
-                .filter(p -> p.getStatus().isStatusFianlizado() != true)
+                .filter(p -> !p.getStatus().isStatusFinalizado())
                 .count();
-        return projetoAtivo < 3;
+        return projetosAtivos < 3;
     }
 
-    //buscar membro mock
+    //buscar membros da API mock externa
     public List<Membro> buscarMembroMock() {
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:8080/mock/membros";
+
         ResponseEntity<List<Membro>> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Membro>>() {}
+                new ParameterizedTypeReference<List<Membro>>() {
+                }
         );
 
         return response.getBody();

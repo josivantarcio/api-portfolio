@@ -30,5 +30,5 @@ public class Membro {
 
     @ManyToMany(mappedBy = "membros")
     @JsonIgnore
-    private List<Projeto> projeto;
+    private List<Projeto> projetos;
 }

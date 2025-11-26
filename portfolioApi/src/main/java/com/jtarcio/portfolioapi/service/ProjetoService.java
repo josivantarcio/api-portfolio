@@ -3,8 +3,8 @@ package com.jtarcio.portfolioapi.service;
 import com.jtarcio.portfolioapi.exception.PortfolioException;
 import com.jtarcio.portfolioapi.model.entity.Membro;
 import com.jtarcio.portfolioapi.model.entity.Projeto;
-import com.jtarcio.portfolioapi.model.entity.enums.ClassificacaoRiscoEnum;
 import com.jtarcio.portfolioapi.model.entity.enums.AtribuicaoEnum;
+import com.jtarcio.portfolioapi.model.entity.enums.ClassificacaoRiscoEnum;
 import com.jtarcio.portfolioapi.model.entity.enums.StatusProjetoEnum;
 import com.jtarcio.portfolioapi.repository.ProjetoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,20 +35,30 @@ public class ProjetoService {
     }
 
     //buscar todos os projetos com paginação
+    @Transactional(readOnly = true)
     public Page<Projeto> findAll(Pageable pageable) {
-        return projetoRepository.findAll(pageable);
+        Page<Projeto> projetos = projetoRepository.findAll(pageable);
+        projetos.forEach(p -> p.getMembros().size());
+        return projetos;
     }
 
     //buscar todos os projetos (sem paginação)
+    @Transactional(readOnly = true)
     public List<Projeto> findAll() {
-        return projetoRepository.findAll();
+        List<Projeto> projetos = projetoRepository.findAll();
+        projetos.forEach(p -> p.getMembros().size());
+        return projetos;
     }
 
     //projeto por id
+    @Transactional(readOnly = true)
     public Projeto findById(Long id) {
-        return projetoRepository.findById(id)
+        Projeto projeto = projetoRepository.findById(id)
                 .orElseThrow(() -> new PortfolioException("Não encontramos esse ID: " + id));
+        projeto.getMembros().size();
+        return projeto;
     }
+
 
     //criar novo projeto com validações
     @Transactional
@@ -87,7 +97,7 @@ public class ProjetoService {
         return projetoRepository.save(projetoExistente);
     }
 
-//deleta projeto com validação de status
+    //deleta projeto com validação de status
     @Transactional
     public void delete(Long id) {
         Projeto projeto = findById(id);
@@ -130,7 +140,7 @@ public class ProjetoService {
         return ClassificacaoRiscoEnum.MEDIO_RISCO;
     }
 
-//alterar status do projeto (com validação de transição sequencial)
+    //alterar status do projeto (com validação de transição sequencial)
     @Transactional
     public Projeto alterarStatus(Long id, StatusProjetoEnum novoStatus) {
         Projeto projeto = findById(id);
@@ -190,7 +200,7 @@ public class ProjetoService {
         }
 
         //3 projetos ativos por membro
-        if (!membroService.newProjeto(membro)){
+        if (!membroService.podeAlocarEmNovoProjeto(membro)) {
             throw new PortfolioException("Membro já está alocado em 3 projetos ativos");
         }
 
@@ -214,14 +224,18 @@ public class ProjetoService {
     }
 
     //gerar relatório resumido do portfólio
+    @Transactional(readOnly = true)
     public Map<String, Object> gerarRelatorioPortfolio() {
         List<Projeto> todosProjetos = projetoRepository.findAll();
+
+        todosProjetos.forEach(p -> p.getMembros().size());
+
         Map<String, Object> relatorio = new HashMap<>();
 
         // • Quantidade de projetos por status
         Map<StatusProjetoEnum, Long> projetosPorStatus = todosProjetos
-                        .stream()
-                        .collect(Collectors
+                .stream()
+                .collect(Collectors
                         .groupingBy(Projeto::getStatus, Collectors.counting()));
 
         relatorio.put("Quantidade por Status", projetosPorStatus);
@@ -314,11 +328,13 @@ public class ProjetoService {
             throw new PortfolioException("Projeto pode ter no máximo 10 membros");
         }
 
-        // Validar que todos são FUNCIONARIO
+        // Validar
         for (Membro membro : projeto.getMembros()) {
-            if (membro.getAtribuicaoEnum() != AtribuicaoEnum.FUNCIONARIO) {
+            Membro membroCompleto = membroService.findById(membro.getId());
+            if (membroCompleto.getAtribuicaoEnum() != AtribuicaoEnum.FUNCIONARIO) {
                 throw new PortfolioException("Apenas membros com atribuição FUNCIONARIO podem ser associados");
             }
         }
     }
+
 }
