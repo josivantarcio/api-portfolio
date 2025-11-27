@@ -1,5 +1,11 @@
 # Sistema de Gestão de Portfólio de Projetos
 
+![Java](https://img.shields.io/badge/Java-21-red)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.7-brightgreen)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)
+![Coverage](https://img.shields.io/badge/coverage-42%25-orange)
+![Tests](https://img.shields.io/badge/tests-33%2F35%20passing-green)
+
 API REST para gerenciamento de portfólio de projetos desenvolvida com Spring Boot 3.5.7, incluindo controle de membros, status, orçamentos e classificação de risco automatizada.
 
 ## Índice
