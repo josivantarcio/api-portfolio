@@ -72,59 +72,51 @@ O projeto implementa princípios de Clean Architecture, segregando responsabilid
 
 ## Arquitetura
 
-src/main/java/com/jtarcio/portfolioapi/
-├── config/
-│ └── SecurityConfig # Configuração de segurança Spring Security
-├── controller/
-│ └── mock/
-│ └── MembroMockController # Controller mock para API externa
-│ ├── MembroController # Endpoints REST de membros
-│ └── ProjetoController # Endpoints REST de projetos
-├── dto/
-│ ├── request/
-│ │ ├── MembroRequestDTO # DTO de requisição de membro
-│ │ └── ProjetoRequestDTO # DTO de requisição de projeto
-│ └── response/
-│ ├── MembroResponseDTO # DTO de resposta de membro
-│ └── ProjetoResponseDTO # DTO de resposta de projeto
-├── exception/
-│ ├── ErrorResponse # Objeto de resposta de erro
-│ ├── GlobalExceptionHandler # Handler global de exceções
-│ └── PortfolioException # Exceção customizada do domínio
-├── mapper/
-│ ├── MembroMapper # Conversor Membro ↔ DTO
-│ └── ProjetoMapper # Conversor Projeto ↔ DTO
-├── model/
-│ └── entity/
-│ ├── enums/
-│ │ ├── AtribuicaoEnum # Enum de tipos de atribuição
-│ │ ├── ClassificacaoRiscoEnum # Enum de classificação de risco
-│ │ └── StatusProjetoEnum # Enum de status do projeto
-│ ├── Membro # Entidade JPA Membro
-│ └── Projeto # Entidade JPA Projeto
-├── repository/
-│ ├── MembroRepository # Repository JPA de Membro
-│ └── ProjetoRepository # Repository JPA de Projeto
-├── service/
-│ ├── MembroService # Regras de negócio de Membro
-│ └── ProjetoService # Regras de negócio de Projeto
-└── PortfolioApiApplication # Classe principal Spring Boot
+O projeto segue uma arquitetura em camadas baseada nos princípios de Clean Architecture:
 
-src/main/resources/
-├── static/ # Recursos estáticos
-├── templates/ # Templates (se houver)
-└── application.yml # Configurações da aplicação
+### Estrutura de Pacotes
 
-src/test/java/com/jtarcio/portfolioapi/
-├── controller/
-│ ├── MembroControllerTest # Testes de integração do MembroController
-│ └── ProjetoControllerTest # Testes de integração do ProjetoController
-├── service/
-│ ├── MembroServiceTest # Testes unitários do MembroService
-│ └── ProjetoServiceTest # Testes unitários do ProjetoService
-└── PortfolioApiApplicationTests # Teste de contexto da aplicação
+**Camada de Apresentação (Controller)**
+- `controller/` - Endpoints REST da API
+- `controller/mock/` - Mock para integração externa
+
+**Camada de Aplicação**
+- `dto/request/` - DTOs de entrada (requisições)
+- `dto/response/` - DTOs de saída (respostas)
+- `mapper/` - Conversores entre Entity e DTO
+
+**Camada de Domínio (Model)**
+- `model/entity/` - Entidades JPA (Projeto, Membro)
+- `model/entity/enums/` - Enumerações do domínio
+
+**Camada de Negócio (Service)**
+- `service/` - Lógica de negócio e validações
+
+**Camada de Persistência (Repository)**
+- `repository/` - Interfaces JPA Repository
+
+**Infraestrutura**
+- `config/` - Configurações (Security, OpenAPI)
+- `exception/` - Exceções customizadas e handlers globais
+
+### Fluxo de Requisição
+
+Cliente → Controller → Service → Repository → Database
+↓ ↓
+DTO Entity
 
 text
+
+### Responsabilidades por Camada
+
+| Camada | Responsabilidade |
+|--------|------------------|
+| **Controller** | Recebe requisições HTTP, valida entrada, retorna respostas |
+| **DTO** | Transferência de dados entre cliente e API |
+| **Mapper** | Conversão bidirecional entre DTO e Entity |
+| **Service** | Regras de negócio, validações, orquestração |
+| **Repository** | Acesso e persistência de dados |
+| **Entity** | Representação do modelo de domínio |
 
 ## Pré-requisitos
 
