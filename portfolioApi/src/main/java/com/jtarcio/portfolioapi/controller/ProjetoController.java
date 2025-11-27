@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -88,7 +89,7 @@ public class ProjetoController {
             @ApiResponse(responseCode = "201", description = "Projeto criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
-    public ResponseEntity<ProjetoResponseDTO> criar(@RequestBody ProjetoRequestDTO projetoRequestDTO) {
+    public ResponseEntity<ProjetoResponseDTO> criar(@Valid @RequestBody ProjetoRequestDTO projetoRequestDTO) {
         Projeto projeto = projetoMapper.toEntity(projetoRequestDTO);
         Projeto novoProjeto = projetoService.create(projeto);
         ProjetoResponseDTO response = projetoMapper.toResponseDTO(novoProjeto);
@@ -107,7 +108,7 @@ public class ProjetoController {
             @ApiResponse(responseCode = "404", description = "Projeto não encontrado"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
-    public ResponseEntity<ProjetoResponseDTO> atualizar(@PathVariable Long id, @RequestBody ProjetoRequestDTO projetoRequestDTO) {
+    public ResponseEntity<ProjetoResponseDTO> atualizar(@PathVariable Long id, @Valid @RequestBody ProjetoRequestDTO projetoRequestDTO) {
 
         Projeto projetoExistente = projetoMapper.toEntity(projetoRequestDTO);
         Projeto projetoAtualizado = projetoService.update(id, projetoExistente);

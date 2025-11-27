@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +62,7 @@ public class MembroController {
             @ApiResponse(responseCode = "201", description = "Membro criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
-    public ResponseEntity<MembroResponseDTO> criar(@RequestBody MembroRequestDTO membroDto) {
+    public ResponseEntity<MembroResponseDTO> criar(@Valid @RequestBody MembroRequestDTO membroDto) {
         Membro newMembro = membroMapper.toEntity(membroDto);
         Membro membroSalvo = membroService.save(newMembro);
         MembroResponseDTO response = membroMapper.toResponseDTO(membroSalvo);
@@ -92,7 +93,7 @@ public class MembroController {
             @ApiResponse(responseCode = "200", description = "Membro alterado com sucesso!"),
             @ApiResponse(responseCode = "400", description = "Membro não encontrado")
     })
-    public ResponseEntity<MembroResponseDTO> alterar(@PathVariable Long id, @RequestBody MembroRequestDTO membroDto) {
+    public ResponseEntity<MembroResponseDTO> alterar(@PathVariable Long id, @Valid @RequestBody MembroRequestDTO membroDto) {
 
         Membro membroJaExistente = membroService.findById(id);
         membroJaExistente.setNome(membroDto.getNome());
