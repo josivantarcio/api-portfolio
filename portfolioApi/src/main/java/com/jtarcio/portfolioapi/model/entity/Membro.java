@@ -3,16 +3,14 @@ package com.jtarcio.portfolioapi.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jtarcio.portfolioapi.model.entity.enums.AtribuicaoEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "tb_membros")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Membro {
@@ -31,4 +29,6 @@ public class Membro {
     @ManyToMany(mappedBy = "membros")
     @JsonIgnore
     private List<Projeto> projetos;
+
+
 }

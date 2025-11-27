@@ -4,19 +4,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jtarcio.portfolioapi.model.entity.enums.ClassificacaoRiscoEnum;
 import com.jtarcio.portfolioapi.model.entity.enums.StatusProjetoEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
 @Table(name = "tb_projetos")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Projeto {
