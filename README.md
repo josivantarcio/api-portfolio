@@ -111,8 +111,6 @@ Cliente → Controller → Service → Repository → Database
 ↓ ↓
 DTO Entity
 
-text
-
 ### Responsabilidades por Camada
 
 | Camada | Responsabilidade |
@@ -138,15 +136,11 @@ text
 git clone https://github.com/josivantarcio/api-portfolio.git
 cd api-portfolio
 
-text
-
 ### 2. Configure o banco de dados
 
 Crie o banco de dados no PostgreSQL:
 
 CREATE DATABASE db_portfolio;
-
-text
 
 ## Configuração
 
@@ -163,22 +157,16 @@ hibernate:
 ddl-auto: update
 show-sql: true
 
-text
-
 ## Executando a Aplicação
 
 ### Utilizando Maven Wrapper
 
 ./mvnw spring-boot:run
 
-text
-
 ### Gerando e executando o JAR
 
 ./mvnw clean package
 java -jar target/portfolioApi-0.0.1-SNAPSHOT.jar
-
-text
 
 A aplicação estará disponível em `http://localhost:8080`
 
@@ -188,13 +176,9 @@ A aplicação estará disponível em `http://localhost:8080`
 
 ./mvnw test
 
-text
-
 ### Gerar relatório de cobertura JaCoCo
 
 ./mvnw jacoco:report
-
-text
 
 O relatório será gerado em `target/site/jacoco/index.html`
 
@@ -258,8 +242,6 @@ EM_ANALISE → ANALISE_REALIZADA → ANALISE_APROVADA →
 INICIADO → PLANEJADO → EM_ANDAMENTO → ENCERRADO
 └→ CANCELADO
 
-text
-
 ### Restrições de Exclusão
 
 Projetos nos seguintes status não podem ser excluídos:
@@ -287,8 +269,6 @@ A API utiliza Spring Security com autenticação Basic Auth. Todas as requisiç�
 curl -X GET http://localhost:8080/api/projetos
 -u admin:admin123
 -H "Content-Type: application/json"
-
-text
 
 ## Cobertura de Testes
 
